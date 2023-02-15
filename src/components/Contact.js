@@ -3,45 +3,41 @@ import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import navIcon1 from "../assets/img/nav-icon1.svg";
+import navIcon2 from "../assets/img/nav-icon2.svg";
+import navIcon3 from "../assets/img/nav-icon3.svg";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EmailIcon from '@mui/icons-material/Email';
+import emailjs from '@emailjs/browser';
+
+const Result = () => {
+  return (
+    <p>Your message has been successfully sent.I will contact you soon</p>
+  )
+}
+
+
 
 export const Contact = () => {
-  const formInitialDetails = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: ''
-  }
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Send');
-  const [status, setStatus] = useState({});
 
-  const onFormUpdate = (category, value) => {
-      setFormDetails({
-        ...formDetails,
-        [category]: value
-      })
-  }
-
-  const handleSubmit = async (e) => {
+  const [result, setResult] = useState(false)
+  const sendEmail = (e) => {
     e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: 'Message sent successfully'});
-    } else {
-      setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-    }
+
+    emailjs.sendForm('service_9trer5j', 'template_rtte3el', e.target, 'vlKtXiDmDq-v0xClP')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+    e.target.reset()
+    setResult(true)
+
   };
+  setTimeout(() => {
+    setResult(false)
+  }, 4000);
+
 
   return (
     <section className="contact" id="connect">
@@ -50,7 +46,7 @@ export const Contact = () => {
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
+                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us" />
               }
             </TrackVisibility>
           </Col>
@@ -58,38 +54,52 @@ export const Contact = () => {
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <h2>Get In Touch</h2>
-                <form onSubmit={handleSubmit}>
-                  <Row>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => onFormUpdate('firstName', e.target.value)} />
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lastName', e.target.value)}/>
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => onFormUpdate('email', e.target.value)} />
-                    </Col>
-                    <Col size={12} sm={6} className="px-1">
-                      <input type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => onFormUpdate('phone', e.target.value)}/>
-                    </Col>
-                    <Col size={12} className="px-1">
-                      <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea>
-                      <button type="submit"><span>{buttonText}</span></button>
-                    </Col>
-                    {
-                      status.message &&
-                      <Col>
-                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                  <h2>Get In Touch</h2>
+                  <form onSubmit={sendEmail}>
+                    <Row>
+                      <Col size={12} className="px-1">
+                        <input type="text" placeholder="fullname" />
                       </Col>
-                    }
-                  </Row>
-                </form>
-              </div>}
+                      <Col size={12} sm={6} className="px-1">
+                        <input type="text" placeholder="lastname" />
+                      </Col>
+                      <Col size={12} sm={6} className="px-1">
+                        <input type="email" name="email" placeholder="Email Address" />
+                      </Col>
+                      <Col size={12} sm={6} className="px-1">
+                        <input type="tel" name="phone" placeholder="Phone No." />
+                      </Col>
+                      <Col size={12} className="px-1">
+                        <textarea rows="6" name="message" placeholder="Message"></textarea>
+                        <button type="submit"><span>Send</span></button>
+                      </Col>
+
+                    </Row>
+                  </form>
+                  <div className="result my-2">{result ? <Result /> : null}</div>
+                </div>}
+
             </TrackVisibility>
+
           </Col>
+
         </Row>
+
       </Container>
+
+      <div className="ext">
+        <h1> Reach Out to me!</h1>
+        <p>DISCUSS A PROJECT OR JUST WANT TO SAY HI? MY INBOX IS OPEN FOR ALL.</p>
+        <div className="social-icon">
+          <a href="https://github.com/MustafaRazaZuberi?tab=repositories/" className="githubA" target={'blank'}><GitHubIcon className="githubIcon" /></a>
+          <a href="https://www.linkedin.com/in/mustafa-zuberi-475334231/" target={'blank'}><img src={navIcon1} alt="" /></a>
+          <a href="https://www.facebook.com/mustafa.zuberi.716" target={'blank'}><img src={navIcon2} alt="" /></a>
+          <a href="https://www.instagram.com/mustafa.raza.zuberi._/" target={'blank'}><img src={navIcon3} alt="" /></a>
+          <a style={{ cursor: "pointer" }} target={'blank'} href="mailto:mustafazuberi986@gmail.com" className="githubA"><EmailIcon className="githubIcon" /></a>
+
+        </div>
+      </div>
     </section>
+
   )
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
+import { HashLink } from 'react-router-hash-link';
+
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
@@ -52,14 +54,18 @@ export const Banner = () => {
       <Container>
         <Row className="aligh-items-center">
           <Col xs={12} md={6} xl={7}>
+
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <span className="tagline">Welcome to my Portfolio</span>
-                  <h1>{`Hi! I'm Mustafa,`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "MERN Stack Developer", "React.js Developer", "Full-Stack Developer" ]'><span className="wrap">{text}</span></span></h1>
+                  <span className="tagline ">Welcome to my Portfolio</span>
+                  <h1 className="introName">{`Hi! I'm Mustafa,`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "MERN Stack Developer", "React.js Developer", "Full-Stack Developer" ]'><span className="wrap">{text}</span></span></h1>
                   <p>
-                    I have a background in developing full-stack web applications, including designing databases and user interfaces, writing back-end code, and working with technologies such as Node.js, Express.js, MongoDB, React.js, and Redux. My portfolio highlights my key skills and showcases my abilities as a Junior MERN Stack developer. I am confident that I would be a valuable asset to any team and am committed to working hard and learning as much as possible. Additionally, I am open to freelancing opportunities and am eager to gain experience in the field..</p>
-                  <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
+                    I have a background in developing full-stack web applications, including designing databases and user interfaces, writing back-end code, and working with technologies such as Node.js, Express.js, MongoDB, React.js, Redux and some other cool libraries and frameworks. I am confident that I would be a valuable asset to any team and am committed to working hard and learning as much as possible. Additionally, I am open to freelancing opportunities and am eager to gain experience in the field..</p>
+
+                  <a href="https://resume.io/r/i34z5PNP0" target={'blank'} style={{textDecoration:"none"}}>
+                    <button>Download Resume <ArrowRightCircle size={25} /></button>
+                  </a>
                 </div>}
             </TrackVisibility>
           </Col>
