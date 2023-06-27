@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { HashLink } from 'react-router-hash-link';
+import Resume from "./../assets/Mustafa latest resume.pdf"
 
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
@@ -63,9 +64,10 @@ export const Banner = () => {
                   <p>
                     I have a background in developing full-stack web applications, including designing databases and user interfaces, writing back-end code, and working with technologies such as Node.js, Express.js, MongoDB, React.js, Redux and some other cool libraries and frameworks. I am confident that I would be a valuable asset to any team and am committed to working hard and learning as much as possible. Additionally, I am open to freelancing opportunities and am eager to gain experience in the field..</p>
 
-                  <a href="https://resume.io/r/i34z5PNP0" target={'blank'} style={{textDecoration:"none"}}>
+                  <a href={Resume} download="Mustafa_latest_resume.pdf" style={{textDecoration:"none"}}>
                     <button>Download Resume <ArrowRightCircle size={25} /></button>
                   </a>
+                  
                 </div>}
             </TrackVisibility>
           </Col>
